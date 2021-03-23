@@ -1,4 +1,4 @@
-// IL TOKEN DELL'API È CONTENUTO NEL FILE API_TOKEN.JS
+// IL TOKEN DELL'API DISCOGS È CONTENUTO NEL FILE API_TOKEN.JS
 const discogsAPI = "https://api.discogs.com//database/search";
 const trendAPI = "https://api.discogs.com/database/search?sort=hot";
 
@@ -63,19 +63,7 @@ new Vue({
             // console.log('link next', this.pagNext);
             })
         },
-// FUNZIONE PER PRELEVARE TUTTI I DATI DAL SINGOLO DISCO:
-        infoRecord: function(e) {
-            this.masterId = e.target.value;
-            
-            axios
-            .get ('https://api.discogs.com/masters/'+ this.masterId)
-            .then ((response)=> {
-                this.masterObject = response.data;
-            })
 
-        },
-
-            // FINE SEZIONE RICERCA
 
         nextPage: function() {
             this.pagination = this.pagNext
@@ -158,7 +146,7 @@ new Vue({
                 params: {
                     'token': API_TOKEN,
                     'page': '1',
-                    'per_page': '5',
+                    'per_page': '10 ',
                     'sort_order' :'hot'
                 }
             })
