@@ -1,6 +1,7 @@
 // IL TOKEN DELL'API DISCOGS È CONTENUTO NEL FILE API_TOKEN.JS
 const discogsAPI = "https://api.discogs.com//database/search";
 const trendAPI = "https://api.discogs.com/database/search?sort=hot";
+const masterAPI = "https://api.discogs.com/masters/"
 
 new Vue({
     el: '#myApp',
@@ -29,7 +30,8 @@ new Vue({
 // i dischi nel dettaglio:
 
         masterId: null,
-        masterObject: null,
+        masterObject: [],
+
 
     },
 
@@ -132,13 +134,37 @@ new Vue({
 
         },
 
+        infoMaster: function(index) {
+           
+        
+        axios
+        .get('https://api.discogs.com/masters/' + this.trendObject[index]['master_id'])
+        .then((response) => {
+            this.masterObject = response.data
+
+            return(this.masterObject);
+        })
+
+
+
+
+
+            
+
+
+            // axios
+            // .get(masterAPI) 
+            // .then((response)=> {
+            //     this.masterObject = response.data
+            //     console.log(this.masterObject);
+            // })
+
+        }
+
     },
 
 
     mounted () {
-        
-
-
 
         // SEZIONE MUSICA IN TENDENZA
         axios
@@ -152,9 +178,9 @@ new Vue({
             })
             .then((response)=> {
                 this.trendObject = response.data.results;
-
-
+                // console.log(this.trendObject);
             })
+
         // FINE SEZIONE MUSICA IN TENDENZA
 
 
