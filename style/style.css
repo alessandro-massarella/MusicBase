@@ -1,0 +1,8 @@
+li {
+    list-style: none;
+    display: inline;
+}
+
+button {
+    width: max-content;
+}

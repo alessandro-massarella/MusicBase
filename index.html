@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    <title>MusicBase</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+    <script src="vue.js"></script>
+
+</head>
+<body>
+    <div id="myApp">
+
+<div id="trendSection" class="container" >
+    <div class="row">
+        <div class="col">
+            <h2>MUSICA DEL MOMENTO // {{ date }}</h2>
+        </div>
+    </div>
+        <ol class="card-deck">
+            <li v-for="item in trendObject" class="card text-center text-white bg-dark mb-3" >
+                <div class="card-body">
+                    <a href=""><img :src="item.thumb" alt=""class="card-img-top"></a>  <br>
+                    {{ item.title }} <br>
+                    {{ item.year }}
+                    Master ID: {{ item.master_id }}
+                </div>
+                <!-- con il value posso leggere l'id di ogni elemento -->
+                <div class="card-footer">
+                    <button v-on:click="infoRecord" :value="item.master_id" class="btn btn-primary">{{ item.master_id }}</button>
+                </div>
+            </li>
+        <!-- INFO DETTAGLIATE DEL DISCO SELEZIONATO: -->
+            <div class="infoDisco">
+                <ol>
+                    <li v-for="(object, index) in masterObject">
+                        {{ index }} : {{ object }}
+                    </li>
+                </ol>
+            </div>
+        </ol>
+
+</div>
+
+<!-- --SEZIONE MUSICA IN TENDENZA -->
+        <div id="trendSection">
+
+
+
+        </div>
+<!-- ---FINE SEZIONE MUSICA IN TENDENZA -->
+
+<!-- SEZIONE RICERCA -->
+<div id="searchSection">
+    <div>
+        <input v-model="querySearch" v-on:keyup="searchFunction" type="text" placeholder="Search...">   
+        <h3>{{ querySearch }}</h3>
+    </div>
+
+    <div>
+        <p>page {{ pageNumber }} / {{ totalPages }} -- Records: {{ items }}</p>
+        <button v-if="pageNumber > 1" v-on:click="prevPage">PREV - </button>
+        <button v-if="pageNumber < totalPages" v-on:click="nextPage">NEXT + </button>
+        <button v-if="pageNumber < (totalPages-1)" v-on:click="lastPage">LAST</button>
+        <button v-if="pageNumber > 2" v-on:click="firstPage">FIRST</button>
+
+    </div>
+
+    <ol>
+        <li v-for="object in objects">
+           <a href=""><img :src="object.thumb" alt=""></a>  <br>
+            {{ object.title }} <br>
+            {{ object.year }} <br>
+            Master ID: {{ object.master_id }}
+            <a v-on:click="infoRecord" href="">{{ object.master_id }}</a>
+
+            <hr>
+        </li>
+    </ol>
+</div>
+<!-- ---FINE SEZIONE RICERCA -->
+
+
+
+    </div> <!-- <--myApp div -->
+    
+
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+        <script src="api_token.js"></script>
+        <script src="script.js"></script>
+</body>
+</html>
