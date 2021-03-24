@@ -21,7 +21,7 @@
         <!-- -----NAVBAR----- -->
         <nav class="navbar navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand">mUSICbASE</a>
+                <a class="navbar-brand"><b>mUSICbASE</b></a>
                 <form class="form-inline">
                   <input v-model="querySearch" v-on:keyup="searchFunction" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" placeholder="Search...">
                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="row">
-                <div v-for="(item, index) in trendObject" class="card mb-3 col-3 col-sm-3 col-lg-3 border-0" style="max-width: 540px;">
+                <div v-for="(item, index) in trendObject" class="card mb-3 col-3 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <img class="card-img-top" :src="item.thumb" alt="...">
@@ -48,11 +48,21 @@
                         <div class="col-md-8">
                             <div class="card-body my_card-body">
                                 <h5 class="card-title">{{ item.title }}</h5>
-                                <!-- <p class="card-text"> Info: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur dicta iste blanditiis ab placeat temporibus dolore beatae, quisquam officiis expedita consequuntur laboriosam, vitae a</p> -->
-                                <p class="card-text"><small class="text-muted"></small></p>
+                               
+                                <p class="card-text" >info: <small class="text-muted" @mouseover="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
                             </div>
                         </div>
                     </div>
+
+                    <div class="my_overlay_card" v-if="singleRecordIndex === index"
+                    >
+                    <span class="white card-text" v-for="item in masterObject['styles']"> {{ item}} / </span>
+                    <p class="white card-text">Year: {{ masterObject.year}} </p>
+                    <p class="white">Tracklist:</p>
+                    <span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span>
+
+                </div>
+    
                 </div>
             </div>
         </div>

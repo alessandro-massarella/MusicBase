@@ -36,12 +36,60 @@ new Vue({
 // i dischi nel dettaglio:
 
         masterId: null,
-        masterObject: [],
+        masterObject: null,
+
+        singleRecord: null,
+        singleRecordIndex: null,
+
+        masterApiUrl: null,
+        mainReleaseUrl: null,
+        mainReleaseObject: null
 
 
     },
 
     methods: {
+
+        infoDisco: function(event) {
+            // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MATER ID RELATIVO
+            this.masterId = event.srcElement.textContent
+            console.log(this.masterId); 
+
+            this.masterApiUrl = masterAPI + this.masterId;
+            console.log(this.masterApiUrl);
+            axios
+                .get(this.masterApiUrl)
+                .then((response)=> {
+                    this.masterObject = response.data;
+                    // this.mainReleaseUrl = response.data['main_release_url']
+                    // console.log(this.mainReleaseUrl);
+                    console.log(this.masterObject);
+
+                })
+            // GRAZIE AL MASTER_ID RECUPERO I DATI DEL MAIN RELEASE
+            // axios
+            //     .get(this.mainReleaseUrl)
+            //     .then((response)=> {
+            //         this.mainReleaseObject = response.data;
+            //         console.log(this.mainReleaseObject);
+            //     })
+
+
+
+                // axios.all ([
+                //     axios.get(this.masterApiUrl),
+                //     axios.get(this.mainReleaseUrl)
+                // ])
+
+                //     .then(axios.spread((result1, result2) => {
+                //         this.mainReleaseUrl = result1.response.data['main_release_url'];
+                //         this.mainReleaseObject = result2.response.data;
+                //         console.log(this.mainReleaseUrl);
+                //         console.log(this.mainReleaseObject);
+                //     }));
+
+        },
+
 
         searchFunction: function() {
                     // SEZIONE RICERCA
@@ -139,6 +187,7 @@ new Vue({
                 })
 
         },
+
 
 
     },
