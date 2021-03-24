@@ -2,12 +2,18 @@
 const discogsAPI = "https://api.discogs.com//database/search";
 const trendAPI = "https://api.discogs.com/database/search?sort=hot";
 const masterAPI = "https://api.discogs.com/masters/"
+const date = new Date();
+let day = date.getDay();
+let month = date.getMonth();
+let year = date.getFullYear();
+let today = day + '/' + month + '/' + year; 
+
 
 new Vue({
     el: '#myApp',
     data: {
 
-        date: new Date,
+        today: today,
         artist: null,
         albums: null,
         bio: null,
@@ -45,7 +51,7 @@ new Vue({
                 'query': this.querySearch,
                 'token': API_TOKEN,
                 'page': '1',
-                'per_page': '5',
+                'per_page': '12',
                 // 'sort_order': 'asc',
                 // 'format': 'album'
             }
@@ -134,32 +140,6 @@ new Vue({
 
         },
 
-        infoMaster: function(index) {
-           
-        
-        axios
-        .get('https://api.discogs.com/masters/' + this.trendObject[index]['master_id'])
-        .then((response) => {
-            this.masterObject = response.data
-
-            return(this.masterObject);
-        })
-
-
-
-
-
-            
-
-
-            // axios
-            // .get(masterAPI) 
-            // .then((response)=> {
-            //     this.masterObject = response.data
-            //     console.log(this.masterObject);
-            // })
-
-        }
 
     },
 
@@ -172,7 +152,7 @@ new Vue({
                 params: {
                     'token': API_TOKEN,
                     'page': '1',
-                    'per_page': '10 ',
+                    'per_page': '8',
                     'sort_order' :'hot'
                 }
             })

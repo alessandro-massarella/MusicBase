@@ -1,6 +1,14 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
 li {
     list-style: none;
     display: inline;
+}
+
+.my_card-body {
+    padding-top: 0;
 }
 
 /* button {
