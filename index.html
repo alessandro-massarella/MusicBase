@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- GOOGLE ICON -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="script/vue.js"></script>
@@ -33,7 +37,9 @@
         <div id="trendSection" class="container">
             <div class="row mt-5 mb-3">
                 <div class="col-10 ">
-                    <h4>MUSICA DEL MOMENTO</h4>
+                    <h4>MUSICA DEL MOMENTO <span class="material-icons">
+                        trending_up
+                        </span></h4>
                 </div>
                 <div class="col-2">
                    <h4>{{ today }}</h4> 
@@ -54,14 +60,12 @@
                         </div>
                     </div>
 
-                    <div class="my_overlay_card" v-if="singleRecordIndex === index"
-                    >
-                    <span class="white card-text" v-for="item in masterObject['styles']"> {{ item}} / </span>
-                    <p class="white card-text">Year: {{ masterObject.year}} </p>
-                    <p class="white">Tracklist:</p>
-                    <span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span>
-
-                </div>
+                    <div class="my_overlay_card" v-if="singleRecordIndex === index">
+                        <span class="white card-text" v-for="item in masterObject['styles']"> {{ item}} / </span>
+                        <p class="white card-text">Year: {{ masterObject.year}} </p>
+                        <p class="white">Tracklist:<span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span>
+                        </p>
+                    </div>
     
                 </div>
             </div>
@@ -77,10 +81,12 @@
 
             <div id="navigator" class="mb-5">
                 <p>{{ pageNumber }} / {{ totalPages }} -- Records: {{ items }}</p>
-                <button v-if="pageNumber > 1" v-on:click="prevPage">PREV - </button>
-                <button v-if="pageNumber < totalPages" v-on:click="nextPage">NEXT + </button>
-                <button v-if="pageNumber < (totalPages-1)" v-on:click="lastPage">LAST</button>
-                <button v-if="pageNumber > 2" v-on:click="firstPage">FIRST</button>
+                <button v-if="pageNumber > 2" v-on:click="firstPage" class="btn btn-outline-success">FIRST</button>
+                <button v-if="pageNumber > 1" v-on:click="prevPage" class="btn btn-outline-secondary material-icons">
+                    chevron_left
+                    </button>
+                <button v-if="pageNumber < totalPages" v-on:click="nextPage" class="btn btn-outline-secondary material-icons">chevron_right </button>
+                <button v-if="pageNumber < (totalPages-1)" v-on:click="lastPage" class="btn btn-outline-danger">LAST</button>
             </div>
 
 <!-- ------------------------------------------------------------------------------------- -->
@@ -95,10 +101,19 @@
                                 <h5 class="card-title">{{ object.title }}</h5>
                                 <!-- <p class="card-text"> Info: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur dicta iste blanditiis ab placeat temporibus dolore beatae, quisquam officiis expedita consequuntur laboriosam, vitae a</p> -->
                                 <p class="card-text"><small class="text-muted">{{ object.year }}</small></p>
-                                <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p>
+                                <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
+                                <p class="card-text" >info: <small class="text-muted" @mouseover="infoDisco($event); singleRecordIndex = index" >{{ object.master_id}}</small></p>
+
                             </div>
                         </div>
                     </div>
+
+                    <div class="my_overlay_card" v-if="singleRecordIndex === index">
+                        <span class="white card-text" v-for="item in masterObject['styles']"> {{ item}} / </span>
+                        <p class="white card-text">Year: {{ masterObject.year}} </p>
+                        <p class="white">Tracklist: <span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span></p>
+                    </div>
+
                 </div>
             </div>
 <!-- ---------------------------------------------------------------------------------------------- -->
