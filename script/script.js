@@ -43,12 +43,27 @@ new Vue({
 
         masterApiUrl: null,
         mainReleaseUrl: null,
-        mainReleaseObject: null
+        mainReleaseObject: null,
+
+        savedRecord: []
 
 
     },
 
     methods: {
+
+        saveRecord: function(index) {
+            this.savedRecord.push(this.trendObject[index]);
+            console.log(this.savedRecord);
+
+        },
+        
+        saveSearchRecord: function(index) {
+            this.savedRecord.push(this.objects[index]);
+            console.log(this.savedRecord);
+
+        },
+
 
         infoDisco: function(event) {
             // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MATER ID RELATIVO
@@ -63,7 +78,7 @@ new Vue({
                     this.masterObject = response.data;
                     // this.mainReleaseUrl = response.data['main_release_url']
                     // console.log(this.mainReleaseUrl);
-                    console.log(this.masterObject);
+                    console.log(this.trendObject);
 
                 })
             // GRAZIE AL MASTER_ID RECUPERO I DATI DEL MAIN RELEASE
