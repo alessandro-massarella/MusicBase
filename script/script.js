@@ -45,7 +45,11 @@ new Vue({
         mainReleaseUrl: null,
         mainReleaseObject: null,
 
-        savedRecord: []
+        savedRecord: [],
+        // LIBRARY ADD È L'ICONA PER AGGIUNGERE IL
+        // DISCO TRA I PREFERITI
+        libraryAdd: 'library_add',
+        libraryAdded:'library_add_check',
 
 
     },
@@ -53,8 +57,32 @@ new Vue({
     methods: {
 
         saveRecord: function(index) {
-            this.savedRecord.push(this.trendObject[index]);
-            console.log(this.savedRecord);
+
+                if (this.savedRecord.includes(this.trendObject[index])) {
+                    console.log('fuckk');
+                    alert('già presente')
+
+                    
+                } else {
+                    this.savedRecord.push(this.trendObject[index]);
+                    console.log(this.savedRecord);
+
+
+                }
+                
+
+
+
+            // console.log(this.savedRecord);
+            // console.log(this.trendObject[index]);
+
+                    
+            
+
+
+            // this.libraryAdd = this.libraryAdded;
+            // console.log('saved records', this.savedRecord);
+            // console.log('object', this.trendObject[index])
 
         },
         
@@ -66,7 +94,7 @@ new Vue({
 
 
         infoDisco: function(event) {
-            // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MATER ID RELATIVO
+            // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MASTER ID RELATIVO
             this.masterId = event.srcElement.textContent
             console.log(this.masterId); 
 

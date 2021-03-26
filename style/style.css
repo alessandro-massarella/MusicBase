@@ -39,34 +39,37 @@ li {
     font-size:smaller; 
 }
 
-@keyframes fade-in {
-    from {
-        opacity: 0%;
-    }
-    to {
-        opacity:100%;
-    }
-}
 .my_overlay_card {
+
     position: absolute;
     top: 0;
     left: 0;
-
     border-radius: 2%;
-
-    animation-duration: 0.3s;
-    animation-name: fade-in;
-
-    background-color: rgb(97, 97, 97);
     opacity: 100%;
     width: 100%;
     height: 100%;
 
+   transition-property: background-color; /*standard*/
+   transition-duration: 1s;
+   transition-timing-function: ease-out;
+ 
     overflow: auto;
+}
+
+.my_overlay_card:hover {
+    background-color: #ff5c00;
 }
 
 .white {
     color: white;
+}
+
+.addAlbum {
+    cursor: -webkit-grabbing; cursor: grabbing;
+}
+
+.addedAlbum {
+    background-color: red;
 }
 
 /* button {

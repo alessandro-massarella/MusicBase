@@ -47,24 +47,24 @@
                 </div>
             </div>
             <div class="row">
-                    <div v-for="(item, index) in trendObject" class="card mb-3 col-3 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
+                    <div v-for="(item, index) in trendObject" :key="item.id" class="card mb-3 col-3 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
                         <div class="row no-gutters">
                             <div class="col-md-4">
                                 <img class="card-img-top" :src="item.thumb" alt="..." >
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body my_card-body">
-                                    <h5 class="card-title">{{ item.title }}</h5>
+                                    <h5 class="card-title">{{ item.title }} - {{ item.id }}</h5>
                                    
                                     <p class="card-text" >info: <small class="text-muted" @mouseover="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
-                                    <p class="material-icons" v-on:click="saveRecord(index)">library_add_check</p>
+                                    <p class="material-icons addAlbum" v-on:click.prevent="saveRecord(index)" >{{ libraryAdd }}</p>
     
                                 </div>
                             </div>
                         </div>
     
                         <div class="my_overlay_card" v-if="singleRecordIndex === index">
-                            <span class="white card-text m-3 " v-for="item in masterObject['styles']"> {{ item}}/ </span>
+                            <span class="white card-text m-3 " v-for="item in masterObject.styles"> {{ item}}/ </span>
                             <p class="white card-text m-3 ">Year: {{ masterObject.year}} </p>
                             <p class="white m-3">Tracklist:<span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span>
                             </p>
@@ -154,7 +154,7 @@
                                 <p class="card-text"><small class="text-muted">{{ object.year }}</small></p>
                                 <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
                                 <p class="card-text" >info: <small class="text-muted" @mouseover.stop="infoDisco($event); singleRecordIndex = index" >{{ object.master_id}}</small></p>
-                                <p class="material-icons" v-on:click="saveSearchRecord(index)">library_add_check</p>
+                                <p class="material-icons addAlbum" v-on:click="saveSearchRecord(index)">library_add</p>
 
                             </div>
                         </div>
