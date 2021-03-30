@@ -23,7 +23,7 @@
 <body>
     <div id="myApp">
         <!-- -----NAVBAR----- -->
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand"><b>mUSICbASE</b></a>
                 <form class="form-inline">
@@ -35,7 +35,7 @@
         <!-- --FINE NAVBAR----- -->
 
 <!-- ----------TREND SECTION---------------- -->
-        <div id="trendSection" class="container">
+        <div id="trendSection"  class="container pt-5">
             <div class="row mt-5 mb-3">
                 <div class="col-10 ">
                     <h4>MUSICA DEL MOMENTO <span class="material-icons">
@@ -47,17 +47,20 @@
                 </div>
             </div>
             <div class="row">
-                    <div v-for="(item, index) in trendObject" :key="item.id" class="card mb-3 col-3 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
+                    <div v-for="(item, index) in trendObject" :key="item.id" class="card mb-3 col-6 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
                         <div class="row no-gutters">
                             <div class="col-md-4">
                                 <img class="card-img-top" :src="item.thumb" alt="..." >
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body my_card-body">
-                                    <h5 class="card-title">{{ item.title }} - {{ item.id }}</h5>
+                                    <h6 class="card-title">{{ item.title }} - {{ item.id }}</h6>
                                    
                                     <p class="card-text" >info: <small class="text-muted" @mouseover="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
-                                    <p class="material-icons addAlbum" v-on:click.prevent="saveRecord(index)" >{{ libraryAdd }}</p>
+                                    <p class="material-icons my_cursor btn-light" 
+                                        v-on:click.prevent="saveRecord(item, index); markRecord(item, $event.target)" 
+                                        >{{ libraryAdd }}
+                                    </p>
     
                                 </div>
                             </div>
@@ -78,7 +81,7 @@
 <!-- -----------FINE TREND SECTION--------------- -->
 
 <!-- ----SEZIONE DISCHI SALVATI (PREFERITI) -->
-<div class="container">
+<div id="preferiti" class="container" v-if="savedRecord.length">
     <div class="row mt-5 mb-3">
         <div class="col-10 ">
             <h4><b>Dischi preferiti</b> <span class="material-icons">
@@ -101,6 +104,8 @@
                         <p class="card-text"><small class="text-muted">{{ item.year }}</small></p>
                         <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
                         <p class="card-text" >info: <small class="text-muted" @mouseover.once="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
+                        <p v-on:click.prevent="removeAlbum(item, index)"
+                        class="material-icons my_cursor btn-danger">highlight_off</p>
 
                     </div>
                 </div>
@@ -118,7 +123,7 @@
 
     </div>
 </div>
-<!-- ----------------FINE DISCHI SALVATI -->
+<!-- ----------------FINE DISCHI preferiti -->
 
 
 <!-- SEZIONE RICERCA -->
@@ -142,7 +147,7 @@
 <!-- RICERCA DISCHI---------- -->
 <!-- ------------------------------------------------------------------------------------- -->
             <div class="row">
-                <div v-for="(object, index) in objects" class="card mb-3 col-6 col-sm-6 col-lg-6 border-0" style="max-width: 540px;"  @mouseleave="singleRecordIndex = null">
+                <div v-for="(object, index) in objects" class="card mb-3 col-12 col-sm-4 col-lg-4 border-0" style="max-width: 540px;"  @mouseleave="singleRecordIndex = null">
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <img class="card-img-top" :src="object.thumb" alt="...">
@@ -154,7 +159,7 @@
                                 <p class="card-text"><small class="text-muted">{{ object.year }}</small></p>
                                 <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
                                 <p class="card-text" >info: <small class="text-muted" @mouseover.stop="infoDisco($event); singleRecordIndex = index" >{{ object.master_id}}</small></p>
-                                <p class="material-icons addAlbum" v-on:click="saveSearchRecord(index)">library_add</p>
+                                <p class="material-icons my_cursor" v-on:click="saveSearchRecord(object, index)">library_add</p>
 
                             </div>
                         </div>

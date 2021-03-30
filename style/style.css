@@ -64,11 +64,11 @@ li {
     color: white;
 }
 
-.addAlbum {
+.my_cursor {
     cursor: -webkit-grabbing; cursor: grabbing;
 }
 
-.addedAlbum {
+.prefer {
     background-color: red;
 }
 

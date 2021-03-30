@@ -51,43 +51,56 @@ new Vue({
         libraryAdd: 'library_add',
         libraryAdded:'library_add_check',
 
+        isPreferClass: 'prefer',
+        defaultClass: ''
 
     },
 
     methods: {
-
-        saveRecord: function(index) {
-
-                if (this.savedRecord.includes(this.trendObject[index])) {
-                    console.log('fuckk');
-                    alert('già presente')
-
-                    
-                } else {
-                    this.savedRecord.push(this.trendObject[index]);
-                    console.log(this.savedRecord);
-
-
-                }
+        // markRecord: function(item, target) {
+        //     let list = target.classList
+        //     if (list.contains('prefer')) {
+        //         list.remove('prefer')
                 
+        //     }else {
+        //         list.add('prefer')
+        //     }
+        //     // console.log('markRecord:', this.list);
 
+        // },
 
-
-            // console.log(this.savedRecord);
-            // console.log(this.trendObject[index]);
-
-                    
+        saveRecord: function(item, index) {
             
+            if (this.savedRecord.includes(item)) {
+                alert('Già presente!')
+                console.log('già presente');
+            } else {
+                this.savedRecord.push(item)
 
+            }
+                console.log('item:',item);
+                console.log('item.id:',item.id);
+                console.log('index:',index);
+                console.log('array', this.savedRecord);
+        },
 
-            // this.libraryAdd = this.libraryAdded;
-            // console.log('saved records', this.savedRecord);
-            // console.log('object', this.trendObject[index])
+        removeAlbum: function (item, index) {
+            this.savedRecord.splice(index, 1)
 
         },
         
-        saveSearchRecord: function(index) {
-            this.savedRecord.push(this.objects[index]);
+        saveSearchRecord: function(object, index) {
+            if (this.savedRecord.includes(object)) {
+                alert('Già presente!!')
+
+                
+            } else {
+                this.savedRecord.push(object);
+
+            console.log(this.savedRecord);
+            }
+
+
             console.log(this.savedRecord);
 
         },
