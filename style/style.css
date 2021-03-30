@@ -50,15 +50,16 @@ li {
     height: 100%;
 
    transition-property: background-color; /*standard*/
-   transition-duration: 1s;
+   transition-duration: 0.3s;
    transition-timing-function: ease-out;
  
     overflow: auto;
 }
 
 .my_overlay_card:hover {
-    background-color: #ff5c00;
+    background-color: #2f343b ;
 }
+
 
 .white {
     color: white;

@@ -44,6 +44,8 @@ new Vue({
         masterApiUrl: null,
         mainReleaseUrl: null,
         mainReleaseObject: null,
+        styles: null,
+        tracklist: null,
 
         savedRecord: [],
         // LIBRARY ADD È L'ICONA PER AGGIUNGERE IL
@@ -69,6 +71,29 @@ new Vue({
 
         // },
 
+        openOverlay: function(item) {
+            master_id = item.master_id
+            console.log(master_id);
+
+            this.masterApiUrl = masterAPI + master_id;
+            console.log(this.masterApiUrl);
+            axios
+                .get(this.masterApiUrl)
+                .then((response)=> {
+                    this.masterObject = response.data;
+                    // this.mainReleaseUrl = response.data['main_release_url']
+                    // console.log(this.mainReleaseUrl);
+                    console.log(this.masterObject);
+                    this.styles = response.data.styles
+                    this.tracklist = response.data.tracklist
+                    
+
+                })
+
+
+
+        },
+
         saveRecord: function(item, index) {
             
             if (this.savedRecord.includes(item)) {
@@ -76,6 +101,10 @@ new Vue({
                 console.log('già presente');
             } else {
                 this.savedRecord.push(item)
+
+                window.scrollBy(0,2000);
+                scrolldelay = setTimeout(pageScroll,10);
+
 
             }
                 console.log('item:',item);
@@ -106,45 +135,45 @@ new Vue({
         },
 
 
-        infoDisco: function(event) {
-            // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MASTER ID RELATIVO
-            this.masterId = event.srcElement.textContent
-            console.log(this.masterId); 
+        // infoDisco: function(event) {
+        //     // RECUPERO IL MASTER_ID DEL SINGOLO DISCO PASSANDO IL MOUSE SUL MASTER ID RELATIVO
+        //     this.masterId = event.srcElement.textContent
+        //     console.log(this.masterId); 
 
-            this.masterApiUrl = masterAPI + this.masterId;
-            console.log(this.masterApiUrl);
-            axios
-                .get(this.masterApiUrl)
-                .then((response)=> {
-                    this.masterObject = response.data;
-                    // this.mainReleaseUrl = response.data['main_release_url']
-                    // console.log(this.mainReleaseUrl);
-                    console.log(this.trendObject);
+        //     this.masterApiUrl = masterAPI + this.masterId;
+        //     console.log(this.masterApiUrl);
+        //     axios
+        //         .get(this.masterApiUrl)
+        //         .then((response)=> {
+        //             this.masterObject = response.data;
+        //             // this.mainReleaseUrl = response.data['main_release_url']
+        //             // console.log(this.mainReleaseUrl);
+        //             console.log(this.trendObject);
 
-                })
-            // GRAZIE AL MASTER_ID RECUPERO I DATI DEL MAIN RELEASE
-            // axios
-            //     .get(this.mainReleaseUrl)
-            //     .then((response)=> {
-            //         this.mainReleaseObject = response.data;
-            //         console.log(this.mainReleaseObject);
-            //     })
+        //         })
+        //     // GRAZIE AL MASTER_ID RECUPERO I DATI DEL MAIN RELEASE
+        //     // axios
+        //     //     .get(this.mainReleaseUrl)
+        //     //     .then((response)=> {
+        //     //         this.mainReleaseObject = response.data;
+        //     //         console.log(this.mainReleaseObject);
+        //     //     })
 
 
 
-                // axios.all ([
-                //     axios.get(this.masterApiUrl),
-                //     axios.get(this.mainReleaseUrl)
-                // ])
+        //         // axios.all ([
+        //         //     axios.get(this.masterApiUrl),
+        //         //     axios.get(this.mainReleaseUrl)
+        //         // ])
 
-                //     .then(axios.spread((result1, result2) => {
-                //         this.mainReleaseUrl = result1.response.data['main_release_url'];
-                //         this.mainReleaseObject = result2.response.data;
-                //         console.log(this.mainReleaseUrl);
-                //         console.log(this.mainReleaseObject);
-                //     }));
+        //         //     .then(axios.spread((result1, result2) => {
+        //         //         this.mainReleaseUrl = result1.response.data['main_release_url'];
+        //         //         this.mainReleaseObject = result2.response.data;
+        //         //         console.log(this.mainReleaseUrl);
+        //         //         console.log(this.mainReleaseObject);
+        //         //     }));
 
-        },
+        // },
 
 
         searchFunction: function() {
@@ -174,6 +203,12 @@ new Vue({
             // console.log('oggetto:', this.objects[0][0]['year']);
             // console.log('link next', this.pagNext);
             })
+
+            window.scrollBy(0,1000);
+            // scrolldelay = setTimeout(pageScroll,1000);
+
+
+
         },
 
 

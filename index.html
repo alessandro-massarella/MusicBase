@@ -25,10 +25,10 @@
         <!-- -----NAVBAR----- -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container">
-                <a class="navbar-brand"><b>mUSICbASE</b></a>
+                <a class="navbar-brand"> <b>mUSICbASE</b> </a>
                 <form class="form-inline">
                   <input v-model="querySearch" v-on:keyup="searchFunction" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" placeholder="Search...">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  <!-- <button class="btn btn-outline-success my-2 my-sm-0" v-on:keyup.enter="searchFunction">Search</button> -->
                 </form>
             </div>
           </nav>
@@ -38,7 +38,7 @@
         <div id="trendSection"  class="container pt-5">
             <div class="row mt-5 mb-3">
                 <div class="col-10 ">
-                    <h4>MUSICA DEL MOMENTO <span class="material-icons">
+                    <h4> <b>Album del momento</b>  <span class="material-icons">
                         trending_up
                         </span></h4>
                 </div>
@@ -50,13 +50,13 @@
                     <div v-for="(item, index) in trendObject" :key="item.id" class="card mb-3 col-6 col-sm-3 col-lg-3 border-0" style="max-width: 540px;"   @mouseleave="singleRecordIndex = null" >
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img class="card-img-top" :src="item.thumb" alt="..." >
+                                <img class="card-img-top" :src="item.thumb" alt="..." @mouseover="openOverlay(item); singleRecordIndex = index">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body my_card-body">
                                     <h6 class="card-title">{{ item.title }} - {{ item.id }}</h6>
                                    
-                                    <p class="card-text" >info: <small class="text-muted" @mouseover="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
+                                    <p class="card-text" >info: <small class="text-muted">{{ item.master_id}}</small></p>
                                     <p class="material-icons my_cursor btn-light" 
                                         v-on:click.prevent="saveRecord(item, index); markRecord(item, $event.target)" 
                                         >{{ libraryAdd }}
@@ -67,9 +67,11 @@
                         </div>
     
                         <div class="my_overlay_card" v-if="singleRecordIndex === index">
-                            <span class="white card-text m-3 " v-for="item in masterObject.styles"> {{ item}}/ </span>
-                            <p class="white card-text m-3 ">Year: {{ masterObject.year}} </p>
-                            <p class="white m-3">Tracklist:<span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span>
+                            <h5 class="m-3 text-success">{{ item.title }}</h5>
+                            <p class="white card-text m-3 "> <b>Year:</b>  <em>{{ item.year}}</em>  </p>
+
+                            <p class="white card-text m-3 " > <span v-for="newItem in styles"> {{ newItem }} / </span> </p>
+                            <p class="white m-3"> <b>Tracklist:</b> <span class="white card-text tracklist" v-for="item in tracklist"> <em>{{ item.title }}</em>  / </span>
                             </p>
                         </div>
         
@@ -85,7 +87,7 @@
     <div class="row mt-5 mb-3">
         <div class="col-10 ">
             <h4><b>Dischi preferiti</b> <span class="material-icons">
-                trending_up
+                favorite_border
                 </span></h4>
         </div>
     </div>
@@ -95,7 +97,7 @@
         <div v-for="(item, index) in savedRecord" class="card mb-3 col-6 col-sm-6 col-lg-6 border-0" style="max-width: 540px;" @mouseleave="singleRecordIndex = null">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img class="card-img-top" :src="item.thumb" alt="...">
+                    <img class="card-img-top" :src="item.thumb" alt="..." @mouseover="openOverlay(item); singleRecordIndex = index">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body my_card-body">
@@ -103,7 +105,7 @@
                         
                         <p class="card-text"><small class="text-muted">{{ item.year }}</small></p>
                         <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
-                        <p class="card-text" >info: <small class="text-muted" @mouseover.once="infoDisco($event); singleRecordIndex = index" >{{ item.master_id}}</small></p>
+                        <p class="card-text" >info: <small class="text-muted" >{{ item.master_id}}</small></p>
                         <p v-on:click.prevent="removeAlbum(item, index)"
                         class="material-icons my_cursor btn-danger">highlight_off</p>
 
@@ -112,9 +114,12 @@
             </div>
 
             <div class="my_overlay_card" v-if="singleRecordIndex === index">
-                <span class="white card-text m-3" v-for="item in masterObject['styles']"> {{ item}} / </span>
-                <p class="white card-text m-3">Year: {{ masterObject.year}} </p>
-                <p class="white m-3">Tracklist: <span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span></p>
+                <h5 class="m-3 text-success">{{ item.title }}</h5>
+                <p class="white card-text m-3 "> <b>Year:</b>  <em>{{ item.year}}</em>  </p>
+
+                <p class="white card-text m-3 " > <span v-for="newItem in styles"> {{ newItem }} / </span> </p>
+                <p class="white m-3"> <b>Tracklist:</b> <span class="white card-text tracklist" v-for="item in tracklist"> <em>{{ item.title }}</em>  / </span>
+                </p>
             </div>
 
         </div>
@@ -127,6 +132,7 @@
 
 
 <!-- SEZIONE RICERCA -->
+
         <!-- LA SEZIONE SARÀ VISIBILE SOLO SE LA BARRA DI RICERCA CONTERRÀ DEL TESTO: -->
         <div id="searchSection" v-if= "querySearch" class="container mt-3">
             <div>
@@ -147,28 +153,28 @@
 <!-- RICERCA DISCHI---------- -->
 <!-- ------------------------------------------------------------------------------------- -->
             <div class="row">
-                <div v-for="(object, index) in objects" class="card mb-3 col-12 col-sm-4 col-lg-4 border-0" style="max-width: 540px;"  @mouseleave="singleRecordIndex = null">
+                <div v-for="(item, index) in objects" class="card mb-3 col-12 col-sm-4 col-lg-4 border-0" style="max-width: 540px;"  @mouseleave="singleRecordIndex = null">
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img class="card-img-top" :src="object.thumb" alt="...">
+                            <img class="card-img-top" :src="item.thumb" alt="..." @mouseover="openOverlay(item); singleRecordIndex = index">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body my_card-body">
-                                <h5 class="card-title">{{ object.title }}</h5>
-                                <!-- <p class="card-text"> Info: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur dicta iste blanditiis ab placeat temporibus dolore beatae, quisquam officiis expedita consequuntur laboriosam, vitae a</p> -->
-                                <p class="card-text"><small class="text-muted">{{ object.year }}</small></p>
-                                <!-- <p class="card-text"><small class="text-muted">Master ID: {{ object.master_id }}</small></p> -->
-                                <p class="card-text" >info: <small class="text-muted" @mouseover.stop="infoDisco($event); singleRecordIndex = index" >{{ object.master_id}}</small></p>
-                                <p class="material-icons my_cursor" v-on:click="saveSearchRecord(object, index)">library_add</p>
-
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text"><small class="text-muted">{{ item.year }}</small></p>
+                                <p class="card-text" >info: <small class="text-muted">{{ item.master_id}}</small></p>
+                                <p class="material-icons my_cursor" v-on:click="saveSearchRecord(item, index)">library_add</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="my_overlay_card" v-if="singleRecordIndex === index">
-                        <span class="white card-text m-3" v-for="item in masterObject['styles']"> {{ item}} / </span>
-                        <p class="white card-text m-3">Year: {{ masterObject.year}} </p>
-                        <p class="white m-3">Tracklist: <span class="white card-text tracklist" v-for="item in masterObject['tracklist']"> {{ item.title}} / </span></p>
+                        <h5 class="m-3 text-success">{{ item.title }}</h5>
+                        <p class="white card-text m-3 "> <b>Year:</b>  <em>{{ item.year}}</em>  </p>
+
+                        <p class="white card-text m-3 " > <span v-for="newItem in styles"> {{ newItem }} / </span> </p>
+                        <p class="white m-3"> <b>Tracklist:</b> <span class="white card-text tracklist" v-for="item in tracklist"> <em>{{ item.title }}</em>  / </span>
+                        </p>
                     </div>
 
                 </div>
