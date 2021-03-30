@@ -67,11 +67,20 @@ li {
 
 .my_cursor {
     cursor: -webkit-grabbing; cursor: grabbing;
+    padding-top: 10px;
 }
 
 .prefer {
     background-color: red;
 }
+
+footer {
+    background-color: #2f343b ;
+    min-height: 150px;
+    
+}
+
+
 
 /* button {
     width: max-content;

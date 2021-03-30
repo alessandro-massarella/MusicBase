@@ -50,7 +50,7 @@ new Vue({
         savedRecord: [],
         // LIBRARY ADD È L'ICONA PER AGGIUNGERE IL
         // DISCO TRA I PREFERITI
-        libraryAdd: 'library_add',
+        libraryAdd: 'favorite_border',
         libraryAdded:'library_add_check',
 
         isPreferClass: 'prefer',
@@ -101,6 +101,8 @@ new Vue({
                 console.log('già presente');
             } else {
                 this.savedRecord.push(item)
+
+
 
                 window.scrollBy(0,2000);
                 scrolldelay = setTimeout(pageScroll,10);

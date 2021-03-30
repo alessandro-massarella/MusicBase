@@ -51,17 +51,17 @@
                         <div class="row no-gutters">
                             <div class="col-md-4">
                                 <img class="card-img-top" :src="item.thumb" alt="..." @mouseover="openOverlay(item); singleRecordIndex = index">
+                                <span class="material-icons my_cursor btn-light" 
+                                v-on:click.prevent="saveRecord(item, index); markRecord(item, $event.target)" 
+                                >{{ libraryAdd }}
+                                </span>
+
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body my_card-body">
                                     <h6 class="card-title">{{ item.title }} - {{ item.id }}</h6>
                                    
                                     <p class="card-text" >info: <small class="text-muted">{{ item.master_id}}</small></p>
-                                    <p class="material-icons my_cursor btn-light" 
-                                        v-on:click.prevent="saveRecord(item, index); markRecord(item, $event.target)" 
-                                        >{{ libraryAdd }}
-                                    </p>
-    
                                 </div>
                             </div>
                         </div>
@@ -157,13 +157,15 @@
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <img class="card-img-top" :src="item.thumb" alt="..." @mouseover="openOverlay(item); singleRecordIndex = index">
+                            <span class="material-icons my_cursor" v-on:click="saveSearchRecord(item, index)">{{libraryAdd }}
+                            </span>
+
                         </div>
                         <div class="col-md-8">
                             <div class="card-body my_card-body">
                                 <h5 class="card-title">{{ item.title }}</h5>
                                 <p class="card-text"><small class="text-muted">{{ item.year }}</small></p>
                                 <p class="card-text" >info: <small class="text-muted">{{ item.master_id}}</small></p>
-                                <p class="material-icons my_cursor" v-on:click="saveSearchRecord(item, index)">library_add</p>
                             </div>
                         </div>
                     </div>
@@ -182,10 +184,9 @@
 <!-- ---------------------------------------------------------------------------------------------- -->
         </div>
         <!-- ---FINE SEZIONE RICERCA -->
+        <!-- <footer class="align-bottom">
 
-
-
-
+        </footer> -->
     </div> <!-- <--myApp div -->
 
 
