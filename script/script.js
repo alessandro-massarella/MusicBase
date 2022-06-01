@@ -294,7 +294,7 @@ new Vue({
                 params: {
                     'token': API_TOKEN,
                     'page': '1',
-                    'per_page': '8',
+                    'per_page': '12',
                     'sort_order' :'hot'
                 }
             })
